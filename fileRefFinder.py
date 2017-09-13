@@ -17,10 +17,23 @@ fileRefRegex = re.compile(r'''(
 
 #LOCATE MATCHES IN CLIPBOARD TEXT
 
+matches = []
 
+clipboardText = str(pyperclip.paste())
+
+for groups in fileRefRegex.findall(clipboardText):
+    fileRef = ''.join([groups[0]])
+    matches.append(fileRef)
 
 #SORT FILE REFERENCES BY LAST 3 DIGITS
 
 
 
 #COPY MATCHES TO THE CLIPBOARD
+    
+if len(matches) > 0:
+    pyperclip.copy('\n'.join(matches))
+    print('Copied to clipboard:')
+
+else:
+    print('No filereferences found')

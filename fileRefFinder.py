@@ -1,6 +1,6 @@
 import pyperclip, re
 
-matches = []
+matchesFromClipboard = []
 matchesShortened = []
 matchesSort = []
 matchOutput = []
@@ -26,22 +26,23 @@ clipboardText = str(pyperclip.paste())
 
 for groups in fileRefRegex.findall(clipboardText):
     fileRef = ''.join([groups[0]])
-    matches.append(fileRef)
+    matchesFromClipboard.append(fileRef)
     
 
 #SORT FILE REFERENCES BY LAST 3 DIGITS
     
-for i in matches:
+for i in matchesFromClipboard:
     t=i
     t=t[7:11]
     matchesShortened.append(t)
 
 matchesShortened.sort()
 
-c = 0
-length = len(matches)
 
-for i in matches:
+
+for i in matchesFromClipboard:
+    c = 0
+    length = len(matchesFromClipboard)
     while c < length:
         if i[7:11] == matchesShortened[c]:
             cNumber = str(c)
@@ -59,7 +60,7 @@ for i in matchesSort:
 
 #COPY MATCHES TO THE CLIPBOARD
     
-if len(matches) > 0:
+if len(matchesFromClipboard) > 0:
     pyperclip.copy('\n'.join(matchOutput))
     print('Copied to clipboard:')
 
